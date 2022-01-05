@@ -1,0 +1,9 @@
+class Solution {
+  public:
+    int findPosition(int N , int M , int K) {
+        int start = K-1;
+        int item = M-1;
+        return (start+item)%N + 1;
+        // code here
+    }
+};

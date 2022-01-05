@@ -1,0 +1,24 @@
+class Solution{
+public:	
+	// #define ull unsigned long long
+	/* Function to get the nth ugly number*/
+	ull getNthUglyNo(int n) {
+	    vector<long long> ugly(n);
+	    ugly[0] = 1;
+	    int c0 = 0,c1 = 0,c2 = 0;
+	    for(int i = 1; i < n; i++){
+	        ugly[i] = min({ugly[c0]*2,ugly[c1]*3,ugly[c2]*5});
+	        if(ugly[i] == ugly[c0]*2){
+	            c0++;
+	        }
+	        if(ugly[i] == ugly[c1]*3){
+	            c1++;
+	        }
+	        if(ugly[i] == ugly[c2]*5){
+	            c2++;
+	        }
+	    }
+	    return ugly[n-1];
+	    // code here
+	}
+};

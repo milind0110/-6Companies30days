@@ -1,0 +1,20 @@
+class Solution {
+  public:
+    bool canPair(vector<int> nums, int k) {
+        vector<int> rem(k);
+        int n = nums.size();
+        for(int i = 0; i < n; i++){
+            rem[nums[i]%k]++;
+        }
+        for(int i = 1; i < (k+1)/2; i++){
+            if(rem[i] != rem[k-i]){
+                return false;
+            }
+        }
+        if(k%2 == 0 && rem[k/2]%2 != 0){
+            return false;
+        }
+        return (rem[0]%2 == 0 ? true : false);
+        // Code here.
+    }
+};

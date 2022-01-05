@@ -1,0 +1,40 @@
+class Solution {
+private:
+    string decode(string &s,int &index){
+        string curr = "";
+        int cnt = 0;
+        while(index < s.length()){
+            if(s[index] >= '0' && s[index] <= '9'){
+                cnt = cnt*10 + (s[index]-'0');
+                index++;
+            }
+            else if(s[index] >= 'a' && s[index] <= 'z'){
+                curr += s[index];
+                index++;
+            }
+            else if(s[index] == '['){
+                index++;
+                string a = decode(s,index);
+                while(cnt > 0){
+                    curr += a;
+                    cnt--;
+                }
+            }
+            else{
+                index++;
+                return curr;
+            }
+        }
+        return curr;
+    }
+public:
+    string decodeString(string s) {
+        int index = 0;
+        string ans = decode(s,index);
+        while(index < s.length()){
+            ans += s[index];
+            index++;
+        }
+        return ans;
+    }
+};

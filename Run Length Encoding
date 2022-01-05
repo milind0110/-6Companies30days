@@ -1,0 +1,20 @@
+string encode(string src)
+{
+    string ans;
+    int cnt = 0;
+    char prev = src[0];
+    for(int i = 0; i < src.length(); i++){
+        if(prev == src[i])
+            cnt++;
+        else{
+            ans.push_back(prev);
+            ans.push_back(cnt+'0');
+            cnt = 1;
+            prev = src[i];
+        }
+    }
+    ans.push_back(prev);
+    ans.push_back(cnt+'0');
+    return ans;
+  //Your code here 
+}

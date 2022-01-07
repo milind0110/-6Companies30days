@@ -1,0 +1,19 @@
+class solution{
+public:
+    vector<int> max10(vector<int> &arr,int n){
+        priority_queue<int,vector<int>,greater<int>> min_heap;
+        for(int i = 0; i < n; i++){
+            min_heap.push(arr[i]);
+            if(min_heap.size() > 10){
+                min_heap.pop();
+            }
+        }
+        vector<int> ans;
+        while(!min_heap.empty()){
+            ans.push_back(min_heap.top());
+            min_heap.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};

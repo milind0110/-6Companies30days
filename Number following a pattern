@@ -1,0 +1,57 @@
+class Solution{   
+public:
+    string printMinNumberForPattern(string S){
+        string ans;
+        int index = 0;
+        int n = S.length();
+        int next = 1;
+        while(index < n){
+            if(index == 0 && S[index] == 'I'){
+                int cnt = 0;
+                while(index < n && S[index] == 'I'){
+                    cnt++;
+                    index++;
+                }
+                while(cnt > 0){
+                    ans.push_back(next + '0');
+                    next++;
+                    cnt--;
+                }
+            }
+            else{
+                int cnt = 0;
+                if(S[index] == 'I'){
+                    while(index < n && S[index] == 'I'){
+                        cnt++;
+                        index++;
+                    }
+                    cnt--;
+                    while(cnt > 0){
+                        ans.push_back(next+'0');
+                        next++;
+                        cnt--;
+                    }
+                }
+                else{
+                    while(index < n && S[index] == 'D'){
+                        cnt++;
+                        index++;
+                    }
+                    cnt++;
+                    int curr = next+cnt-1;
+                    next = next+cnt;
+                    while(cnt > 0){
+                        ans.push_back(curr+'0');
+                        curr--;
+                        cnt--;
+                    }
+                }
+            }
+        }
+        if(ans.length() == S.length()){
+            ans.push_back(next+'0');
+        }
+        return ans;
+        // code here 
+    }
+};

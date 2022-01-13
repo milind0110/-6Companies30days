@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        queue<pair<int,int>> q;
+        vector<vector<int>> mn_time(n,vector<int>(m,-1));
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(grid[i][j] == 2){
+                    mn_time[i][j] = 0;
+                    q.push({i,j});
+                }
+            }
+        }
+        int dx[] = {-1,1,0,0};
+        int dy[] = {0,0,-1,1};
+        while(!q.empty()){
+            int x = q.front().first;
+            int y = q.front().second;
+            q.pop();
+            for(int i = 0; i < 4; i++){
+                int new_x = x + dx[i];
+                int new_y = y + dy[i];
+                if(new_x >= 0 && new_x < n && new_y >= 0 && new_y < m && mn_time[new_x][new_y] == -1 
+                   && grid[new_x][new_y] == 1){
+                    q.push({new_x,new_y});
+                    mn_time[new_x][new_y] = mn_time[x][y] + 1; 
+                }
+            }
+        }
+        int mx = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(grid[i][j] == 1){
+                    if(mn_time[i][j] == -1)
+                        return -1;
+                    mx = max(mx,mn_time[i][j]);
+                }
+            }
+        }
+        return mx;
+        
+        
+    }
+};

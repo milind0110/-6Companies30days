@@ -1,0 +1,68 @@
+class trie{
+  public:
+    trie* character[26];
+    bool isleaf;
+    trie(){
+        for(int i = 0; i < 26; i++){
+            character[i] = NULL;
+        }
+        isleaf = false;
+    }
+    void insert(string &s){
+        trie* curr = this;
+        for(int i = 0; i < s.length(); i++){
+            if(!curr->character[s[i]-'a']){
+                curr->character[s[i]-'a'] = new trie();
+            }
+            curr = curr->character[s[i]-'a'];
+        }
+        curr->isleaf = true;
+    }
+    void prefix(trie* curr,string &s,vector<string> &temp){
+        if(curr->isleaf){
+            temp.push_back(s);
+        }
+        for(int i = 0; i < 26; i++){
+            if(curr->character[i]){
+                s.push_back(i+'a');
+                prefix(curr->character[i],s,temp);
+                s.pop_back();
+            }
+        }
+        return ;
+    }
+    vector<vector<string>> search(string &s){
+        trie* curr = this;
+        vector<vector<string>> ans;
+        string now;
+        for(int i = 0; i < s.length(); i++){
+            if(curr->character[s[i]-'a'] == NULL){
+                break;
+            }
+            else{
+                now.push_back(s[i]);
+                curr = curr->character[s[i]-'a'];
+                vector<string> temp;
+                prefix(curr,now,temp);
+                if(!temp.empty())
+                    ans.push_back(temp);
+            }
+        }
+        while(ans.size() < s.length()){
+            ans.push_back({"0"});
+        }
+        return ans;
+    }
+};
+class Solution{
+public:
+    vector<vector<string>> displayContacts(int n, string contact[], string s)
+    {
+        trie* head = new trie();
+        for(int i = 0; i < n; i++){
+            head->insert(contact[i]);
+        }
+        return head->search(s);
+        // code here
+    }
+};

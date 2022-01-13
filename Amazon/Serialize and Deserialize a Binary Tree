@@ -1,0 +1,73 @@
+class Solution
+{
+    public:
+    //Function to serialize a tree and return a list containing nodes of tree.
+    vector<int> serialize(Node *root) 
+    {
+        vector<int> v;
+        queue<Node*> q;
+        if(root == NULL)
+            return v;
+        q.push(root);
+        v.push_back(root->data);
+        while(!q.empty()){
+            int siz = q.size();
+            for(int j = 0; j < siz; j++){
+                Node *curr = q.front();
+                q.pop();
+                if(curr->left){
+                    v.push_back(curr->left->data);
+                    q.push(curr->left);
+                }
+                else
+                    v.push_back(0);
+                if(curr->right){
+                    v.push_back(curr->right->data);
+                    q.push(curr->right);
+                }
+                else
+                    v.push_back(0);
+            }
+        }
+        return v;
+        //Your code here
+    }
+    
+    //Function to deserialize a list and construct the tree.
+    Node * deSerialize(vector<int> &A)
+    {
+        if(A.empty())
+            return NULL;
+        int l = 0;
+        Node* curr = new Node(A[l]);
+        queue<Node*> q;
+        curr->data = A[l++];
+        q.push(curr);
+        while(!q.empty()){
+            int siz = q.size();
+            for(int j = 0; j < siz; j++){
+                Node* x = q.front();
+                q.pop();
+                if(A[l] == 0){
+                    x->left = NULL;
+                    l++;
+                }
+                else{
+                    x->left = new Node(A[l++]);
+                    q.push(x->left);
+                }
+                if(A[l] == 0){
+                    x->right = NULL;
+                    l++;
+                }
+                else{
+                    x->right = new Node(A[l++]);
+                    q.push(x->right);
+                }
+            }
+        }
+        return curr;
+       //Your code here
+    }
+
+};

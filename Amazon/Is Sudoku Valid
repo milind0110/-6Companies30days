@@ -1,0 +1,72 @@
+class Solution{
+public:
+    bool grid_check(vector<vector<int>> &mat){
+        int n = mat.size();
+        for(int i = 0; i < n; i += 3){
+            for(int j = 0; j < n; j += 3){
+                for(int x = i; x < i+3; x++){
+                    for(int y = j; y < j+3; y++){
+                        if(abs(mat[x][y]) == 1)
+                            continue;
+                        int val = abs(mat[x][y])-2;
+                        if(mat[val/3+i][val%3+j] < 0)
+                            return false;
+                        mat[val/3+i][val%3+j]*=-1;
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                mat[i][j] = abs(mat[i][j]);
+            }
+        }
+        return true;
+    }
+    bool column_check(vector<vector<int>> &mat){
+        int n = mat.size();
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(abs(mat[i][j]) == 1)
+                    continue;
+                if(mat[abs(mat[i][j])-2][j] < 0)
+                    return false;
+                mat[abs(mat[i][j])-2][j]*=-1;
+            }
+        }
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                mat[i][j] = abs(mat[i][j]);
+            }
+        }
+        return true;
+    }
+    bool row_check(vector<vector<int>> &mat){
+        int n = mat.size();
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(abs(mat[i][j]) == 1)
+                    continue;
+                if(mat[i][abs(mat[i][j])-2] < 0)
+                    return false;
+                mat[i][abs(mat[i][j])-2]*=-1;
+            }
+        }
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                mat[i][j] = abs(mat[i][j]);
+            }
+        }
+        return true;
+    }
+    int isValid(vector<vector<int>> mat){
+        int n = mat.size();
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++)
+                mat[i][j]++;
+        }
+        // cout << row_check(mat) << " " << column_check(mat) << " " << grid_check(mat) << "\n";
+        return row_check(mat)&&column_check(mat)&&grid_check(mat);
+        // code here
+    }
+};

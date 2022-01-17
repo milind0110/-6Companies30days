@@ -1,0 +1,41 @@
+void rotate(vector<vector<int> >& matrix)
+{
+    int n = matrix.size();
+    int times = n/2;
+    int c_end = n-1;
+    int c_start = 0;
+    int dx[] = {0,1,0,-1};
+    int dy[] = {1,0,-1,0};
+    while(times--){
+        int x = c_start,y = c_start;
+        int nx = x,ny = c_end;
+        int s1 = 0,s2 = 1;
+        int now = (c_end-c_start+1)*4 - 4 - (c_end-c_start);
+        while(now--){
+            swap(matrix[x][y],matrix[nx][ny]);
+            if(x+dx[s1] < c_start || x+dx[s1] > c_end){
+                s1++;
+                s1 %= 4;
+            }
+            if(y+dy[s1] < c_start || y+dy[s1] > c_end){
+                s1++;
+                s1 %= 4;
+            }
+            if(nx+dx[s2] < c_start || nx+dx[s2] > c_end){
+                s2++;
+                s2 %= 4;
+            }
+            if(ny+dy[s2] < c_start || ny+dy[s2] > c_end){
+                s2++;
+                s2 %= 4;
+            }
+            x += dx[s1];
+            y += dy[s1];
+            nx += dx[s2];
+            ny += dy[s2];
+        }
+        c_start++;
+        c_end--;
+    }
+    // Your code goes here
+}

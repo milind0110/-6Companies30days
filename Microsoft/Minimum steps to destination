@@ -1,0 +1,19 @@
+class Solution{
+public:
+    int minSteps(int D){
+        int curr = 1;
+        while(true){
+            int total = curr*(curr+1)/2;
+            if(total < D){
+                curr++;
+                continue;
+            }
+            int diff = total - D;
+            if(diff%2 == 0)
+                return curr;
+            curr++;
+        }
+        return curr;
+        // code here
+    }
+};

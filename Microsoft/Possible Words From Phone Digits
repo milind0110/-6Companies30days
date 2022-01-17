@@ -1,0 +1,94 @@
+class Solution
+{
+    public:
+    //Function to find list of all words possible by pressing given numbers.
+    void generate(int a[],int N,string &curr,int i,vector<string> &ans){
+        if(i == N){
+            ans.push_back(curr);
+            return ;
+        }
+        char ch;
+        switch (a[i]){
+            case 2:
+                ch = 'a';
+                for(int j = 0; j < 3; j++){
+                    curr.push_back(ch+j);
+                    generate(a,N,curr,i+1,ans);
+                    curr.pop_back();
+                }
+                break;
+            
+            case 3:
+                ch = 'd';
+                for(int j = 0; j < 3; j++){
+                    curr.push_back(ch+j);
+                    generate(a,N,curr,i+1,ans);
+                    curr.pop_back();
+                }
+                break;
+            
+            case 4:
+                ch = 'g';
+                for(int j = 0; j < 3; j++){
+                    curr.push_back(ch+j);
+                    generate(a,N,curr,i+1,ans);
+                    curr.pop_back();
+                }
+                break;
+            
+            case 5:
+                ch = 'j';
+                for(int j = 0; j < 3; j++){
+                    curr.push_back(ch+j);
+                    generate(a,N,curr,i+1,ans);
+                    curr.pop_back();
+                }
+                break;
+            
+            case 6:
+                ch = 'm';
+                for(int j = 0; j < 3; j++){
+                    curr.push_back(ch+j);
+                    generate(a,N,curr,i+1,ans);
+                    curr.pop_back();
+                }
+                break;
+            
+            case 7:
+                ch = 'p';
+                for(int j = 0; j < 4; j++){
+                    curr.push_back(ch+j);
+                    generate(a,N,curr,i+1,ans);
+                    curr.pop_back();
+                }
+                break;
+            
+            case 8:
+                ch = 't';
+                for(int j = 0; j < 3; j++){
+                    curr.push_back(ch+j);
+                    generate(a,N,curr,i+1,ans);
+                    curr.pop_back();
+                }
+                break;
+            
+            case 9:
+                ch = 'w';
+                for(int j = 0; j < 4; j++){
+                    curr.push_back(ch+j);
+                    generate(a,N,curr,i+1,ans);
+                    curr.pop_back();
+                }
+                break;
+            
+        }
+    }
+    vector<string> possibleWords(int a[], int N)
+    {
+        vector<string> ans;
+        string curr;
+        generate(a,N,curr,0,ans);
+        return ans;
+        //Your code here
+    }
+};

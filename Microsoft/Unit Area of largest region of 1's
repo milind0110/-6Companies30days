@@ -1,0 +1,47 @@
+class Solution
+{
+    public:
+    bool valid(int x,int y,int n,int m){
+        if(x < 0 || x >= n)
+            return false;
+        if(y < 0 || y >= m)
+            return false;
+        return true;
+    }
+    //Function to find unit area of the largest region of 1s.
+    int findMaxArea(vector<vector<int>>& grid) {
+        // Code here
+        int ans = 0;
+        int n = grid.size();
+        int m = grid[0].size();
+        int dx[] = {-1,0,1,0,-1,1,-1,1};
+        int dy[] = {0,1,0,-1,-1,1,1,-1};
+        vector<vector<int>> vis(n,vector<int>(m));
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(vis[i][j] || grid[i][j] == 0)
+                    continue;
+                    queue<pair<int,int>> q;
+                    q.push({i,j});
+                    vis[i][j] = 1;
+                    int cnt = 0;
+                    while(!q.empty()){
+                        int x = q.front().first;
+                        int y = q.front().second;
+                        cnt++;
+                        q.pop();
+                        for(int k = 0; k < 8; k++){
+                            int newx = x + dx[k];
+                            int newy = y + dy[k];
+                            if(valid(newx,newy,n,m) && !vis[newx][newy] && grid[newx][newy] == 1){
+                                q.push({newx,newy});
+                                vis[newx][newy] = 1;
+                            }
+                        }
+                    }
+                    ans = max(ans,cnt);
+            }
+        }
+        return ans;
+    }
+};

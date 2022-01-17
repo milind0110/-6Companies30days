@@ -1,0 +1,29 @@
+class Solution
+{
+	public:
+    //Function to find if the given edge is a bridge in graph.
+    int isBridge(int V, vector<int> adj[], int c, int d) 
+    {
+        int vis[V] = {0};
+        queue<int> q;
+        vis[c] = 1;
+        for(auto i:adj[c]){
+            if(i == d)
+                continue;
+            q.push(i);
+            vis[i] = 1;
+        }
+        while(!q.empty()){
+            int x = q.front();
+            q.pop();
+            for(auto i:adj[x]){
+                if(vis[i])
+                    continue;
+                q.push(i);
+                vis[i] = 1;
+            }
+        }
+        return !vis[d];
+        // Code here
+    }
+};

@@ -1,0 +1,18 @@
+int dfs(Node* root,int &cnt,int X){
+    int sum = 0;
+    sum += root->data;
+    if(root->left)
+        sum += dfs(root->left,cnt,X);
+    if(root->right)
+        sum += dfs(root->right,cnt,X);
+    if(sum == X)
+        cnt++;
+    return sum;
+}
+int countSubtreesWithSumX(Node* root, int X)
+{
+    int cnt = 0;
+    dfs(root,cnt,X);
+    return cnt;
+	// Code here
+}

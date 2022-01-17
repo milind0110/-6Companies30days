@@ -1,0 +1,17 @@
+vector<string> generate(int N)
+{
+    vector<string> ans;
+    ans.push_back("1");
+    int curr = 0;
+    int flip = 0;
+    while((int)ans.size() < N){
+        ans.push_back(ans[curr]);
+        ans.back().push_back(flip + '0');
+        if(flip)
+            curr++;
+        flip ^= 1;
+    }
+    return ans;
+    
+	// Your code here
+}

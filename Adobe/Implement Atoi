@@ -1,0 +1,24 @@
+class Solution{
+  public:
+    /*You are required to complete this method */
+    int atoi(string str) {
+        int n = str.length();
+        for(int i = 1; i < n; i++){
+            if(str[i] < '0' || str[i] > '9')
+                return -1;
+        }
+        if((str.front() < '0' || str.front() > '9') && str.front() != '-')
+            return -1;
+        long long ans = 0;
+        int i = 0;
+        if(str.front() == '-')
+            i++;
+        for(; i < n; i++){
+            ans = ans*10 + (str[i] - '0');
+        }
+        if(str.front() == '-')
+            ans*=-1;
+        return ans;
+        //Your code here
+    }
+};

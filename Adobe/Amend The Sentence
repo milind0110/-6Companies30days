@@ -1,0 +1,22 @@
+class Solution{
+    public:
+    string amendSentence (string s)
+    {
+        string ans;
+        if(s.front() >= 'A' && s.front() <= 'Z')
+            ans.push_back(s.front() - 'A' + 'a');
+        else
+            ans.push_back(s.front());
+        int n = s.length();
+        for(int i = 1; i < n; i++){
+            if(s[i] >= 'A' && s[i] <= 'Z'){
+                ans.push_back(' ');
+                ans.push_back(s[i] - 'A' + 'a');
+            }
+            else
+                ans.push_back(s[i]);
+        }
+        return ans;
+        // your code here
+    }
+};

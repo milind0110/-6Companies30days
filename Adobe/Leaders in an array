@@ -1,0 +1,18 @@
+class Solution{
+    //Function to find the leaders in the array.
+    public:
+    vector<int> leaders(int a[], int n){
+        vector<int> ans;
+        stack<int> s;
+        for(int i = n-1; i >= 0; i--){
+            while(!s.empty() && a[s.top()] <= a[i])s.pop();
+            if(s.empty())
+                ans.push_back(a[i]);
+            s.push(i);
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+        // Code here
+        
+    }
+};

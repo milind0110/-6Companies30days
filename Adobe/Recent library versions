@@ -1,0 +1,45 @@
+void solve(){
+    string s,t;
+    cin >> s >> t;
+    if(s.empty()){
+        cout << t << "\n";
+        return ;
+    }
+    if(t.empty()){
+        cout << s << "\n";
+        return ;
+    }
+    vector<int> sv,st;
+    int curr = 0;
+    for(int i = 0; i < s.length(); i++){
+        if(s[i] == '.'){
+            sv.push_back(curr);
+            curr = 0;
+        }
+        else{
+            curr = curr*10 + (s[i] - '0');
+        }
+    }
+    sv.push_back(curr);
+    curr = 0;
+    for(int i = 0; i < t.length(); i++){
+        if(t[i] == '.'){
+            st.push_back(curr);
+            curr = 0;
+        }
+        else{
+            curr = curr*10 + (t[i] - '0');
+        }
+    }
+    st.push_back(curr);
+    for(int i = 0; i < min((int)sv.size(),(int)st.size()); i++){
+        if(sv[i] > st[i]){
+            cout << s << "\n";
+            return ;
+        }
+        else if(st[i] > sv[i]){
+            cout << t << "\n";
+            return ;
+        }
+    }
+}

@@ -1,0 +1,29 @@
+class Solution
+{
+    public:
+    void generate(string &curr,vector<string> &ans,int n,int bal){
+        if(n == 0 && bal == 0){
+            ans.push_back(curr);
+            return ;
+        }
+        if(n > 0){
+            curr.push_back('(');
+            generate(curr,ans,n-1,bal+1);
+            curr.pop_back();
+        }
+        if(bal > 0){
+            curr.push_back(')');
+            generate(curr,ans,n,bal-1);
+            curr.pop_back();
+        }
+        
+    }
+    vector<string> AllParenthesis(int n) 
+    {
+        string curr = "";
+        vector<string> ans;
+        generate(curr,ans,n,0);
+        return ans;
+        // Your code goes here 
+    }
+};

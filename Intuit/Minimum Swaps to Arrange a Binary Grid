@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int minSwaps(vector<vector<int>>& grid) {
+        vector<pair<int,int>> row;
+        int n = grid.size();
+        for(int i = 0; i < n; i++){
+            int j = n-1;
+            int cnt = 0;
+            while(j >= 0 && grid[i][j] == 0){
+                cnt++;
+                j--;
+            }
+            row.push_back({cnt,i});
+        }
+        int req = 0;
+        int curr = n-1;
+        int pos = 0;
+        vector<int> vis(n);
+        while(curr > 0){
+            int ind = -1;
+            for(int i = 0; i < n; i++){
+                if(row[i].first >= curr && !vis[i]){
+                    ind = i;
+                    vis[i] = 1;
+                    break;
+                }
+                else{
+                    row[i].second++;
+                }
+            }
+            if(ind == -1)
+                return -1;
+            req += abs(pos-row[ind].second);
+            pos++;
+            curr--;
+        }
+        return req;
+        
+    }
+};

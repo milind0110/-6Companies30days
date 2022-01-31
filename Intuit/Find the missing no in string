@@ -1,0 +1,32 @@
+int find(const string& str,int i,int curr,int next){
+    if(i == str.length()){
+        return (next == 0 ? 0 : -1);
+    }
+    next = next*10 + (str[i]-'0');
+    if(next <= curr){
+        return find(str,i+1,curr,next);
+    }
+    if(next == curr+1){
+        return find(str,i+1,next,0);
+    }
+    else if(next == curr+2){
+        int ans = find(str,i+1,next,0);
+        if(ans == 0)
+            return curr+1;
+        return -1;
+    }
+    else
+        return -1;
+}
+int missingNumber(const string& str)
+{
+    int curr = 0;
+    for(int i = 0; i < 6; i++){
+        curr = curr*10 + (str[i] - '0');
+        int ans = find(str,i+1,curr,0);
+        if(ans > 0)
+            return ans;
+    }
+    return -1;
+    // Code here
+}

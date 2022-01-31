@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool check(vector<int>& v,int m,int mid){
+        int n = v.size();
+        int cnt = 1;
+        int curr = 0;
+        for(int i = 0; i < n; i++){
+            if(curr+v[i] > mid){
+                cnt++;
+                curr = v[i];
+            } else {
+                curr += v[i];
+            }
+        }
+        return cnt <= m;
+    }
+    int splitArray(vector<int>& nums, int m) {
+        int sum = accumulate(nums.begin(),nums.end(),0);
+        int low = *max_element(nums.begin(),nums.end()),high = sum;
+        int ans = 0;
+        while(low <= high){
+            int mid = (low + high)/2;
+            if(check(nums,m,mid)){
+                ans = mid;
+                high = mid-1;
+            }
+            else
+                low = mid+1;
+        }
+        return ans;
+    }
+};

@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int findInMountainArray(int target, MountainArray &mountainArr) {
+        int n = mountainArr.length();
+        int peak = 0;
+        int low = 1,high = n-1; 
+        while(low <= high){
+            int mid = (low + high)/2;
+            int left = mountainArr.get(mid-1);
+            int curr = mountainArr.get(mid);
+            if(left < curr){
+                peak = mid;
+                low = mid+1;
+            }
+            else{
+                high = mid-1;
+            }
+        }
+        low = 0,high = peak;
+        while(low <= high){
+            int mid = (low+high)/2;
+            int curr = mountainArr.get(mid);
+            if(curr == target)
+                return mid;
+            if(curr < target){
+                low = mid+1;
+            }
+            else
+                high = mid-1;
+        }
+        low = peak+1,high = n-1;
+        while(low <= high){
+            int mid = (low+high)/2;
+            int curr = mountainArr.get(mid);
+            if(curr == target)
+                return mid;
+            if(curr > target){
+                low = mid+1;
+            }
+            else
+                high = mid-1;
+        }
+        return -1;
+        
+    }
+};

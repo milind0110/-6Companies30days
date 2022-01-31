@@ -1,0 +1,29 @@
+class Solution {
+public:
+    Node* build(int x,int y,int n,vector<vector<int>>& grid){
+        if(n == 1){
+            Node *curr = new Node(grid[x][y],true,NULL,NULL,NULL,NULL);
+            return curr;
+        }
+        Node *top_left = build(x,y,n/2,grid);
+        Node *top_right = build(x,y+n/2,n/2,grid);
+        Node *bottom_left = build(x+n/2,y,n/2,grid);
+        Node *bottom_right = build(x+n/2,y+n/2,n/2,grid);
+        if(top_left->isLeaf && top_right->isLeaf && bottom_left->isLeaf && bottom_right->isLeaf){
+            if(top_left->val == top_right->val && bottom_left->val == bottom_right->val && top_left->val == bottom_right->val){
+                Node *curr = new Node(top_left->val,true,NULL,NULL,NULL,NULL);
+                delete top_left;
+                delete top_right;
+                delete bottom_left;
+                delete bottom_right;
+                return curr;
+            }
+        }
+        Node *curr = new Node(top_left->val,false,top_left,top_right,bottom_left,bottom_right);
+        return curr;
+    }
+    Node* construct(vector<vector<int>>& grid) {
+        int n = grid.size();
+        return build(0,0,n,grid);
+    }
+};

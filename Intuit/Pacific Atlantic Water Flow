@@ -1,0 +1,74 @@
+class Solution {
+public:
+    bool valid(int n,int m,int x,int y){
+        if(x >= n || x < 0)
+            return false;
+        if(y >= m || y < 0)
+            return false;
+        return true;
+    }
+    void bfs(vector<vector<int>>& cnt,vector<vector<int>>& heights,vector<vector<bool>> vis,queue<pair<int,int>>& q){
+        int n = heights.size();
+        int m = heights[0].size();
+        int dx[] = {-1,0,1,0};
+        int dy[] = {0,-1,0,1};
+        while(!q.empty()){
+            int x = q.front().first;
+            int y = q.front().second;
+            q.pop();
+            for(int i = 0; i < 4; i++){
+                int new_x = x + dx[i];
+                int new_y = y + dy[i];
+                if(valid(n,m,new_x,new_y) && !vis[new_x][new_y] && heights[new_x][new_y] >= heights[x][y]){
+                    q.push({new_x,new_y});
+                    vis[new_x][new_y] = 1;
+                    cnt[new_x][new_y] += 1;
+                }
+            }
+        }
+    }
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        int n = heights.size();
+        int m = heights[0].size();
+        vector<vector<int>> cnt(n,vector<int>(m,0));
+        queue<pair<int,int>> q;
+        vector<vector<bool>> vis(n,vector<bool>(m,false));
+        for(int i = 0; i < n; i++){
+            q.push({i,0});
+            vis[i][0] = 1;
+            cnt[i][0] += 1;
+        }
+        for(int i = 1; i < m; i++){
+            q.push({0,i});
+            vis[0][i] = 1;
+            cnt[0][i] += 1;
+        }
+        bfs(cnt,heights,vis,q);
+        for(int i = 0; i < n; i++){
+            vis[i][0] = 0;
+        }
+        for(int i = 1; i < m; i++){
+            vis[0][i] = 0;
+        }
+        for(int i = 0; i < n; i++){
+            q.push({i,m-1});
+            vis[i][m-1] = 1;
+            cnt[i][m-1] += 1;
+        }
+        for(int i = 0; i < m-1; i++){
+            q.push({n-1,i});
+            vis[n-1][i] = 1;
+            cnt[n-1][i] += 1;
+        }
+        bfs(cnt,heights,vis,q);
+        vector<vector<int>> ans;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(cnt[i][j] == 2){
+                    ans.push_back({i,j});
+                }
+            }
+        }
+        return ans;
+    }
+};

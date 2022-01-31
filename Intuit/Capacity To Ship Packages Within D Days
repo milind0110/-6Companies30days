@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool check(int mid,vector<int> weights,int D){
+        int curr = mid;
+        D--;
+        for(auto i:weights){
+            if(curr-i >= 0){
+                curr -= i;
+            }
+            else{
+                D--;
+                curr = mid-i;
+            }
+        }
+        return D >= 0;
+    }
+    int shipWithinDays(vector<int>& weights, int D) {
+        int n = weights.size();
+        int low = *max_element(weights.begin(),weights.end());
+        int high = low*n;
+        int ans = 0;
+        while(low <= high){
+            int mid = (low + high)/2;
+            if(check(mid,weights,D)){
+                ans = mid;
+                high = mid-1;
+            }
+            else
+                low = mid+1;
+        }
+        return ans;
+    }
+};

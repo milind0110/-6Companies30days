@@ -1,0 +1,10 @@
+class Solution{
+public:
+    int height(int N){
+        int mn = sqrt(2*N);
+        if(mn*(mn+1) > 2*N)
+            mn--;
+        return mn;
+        // code here
+    }
+};

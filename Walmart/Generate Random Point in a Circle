@@ -1,0 +1,17 @@
+class Solution {
+public:
+    double r,x,y;
+    Solution(double radius, double x_center, double y_center) {
+        r = radius;
+        x = x_center;
+        y = y_center;
+    }
+    
+    vector<double> randPoint() {
+        double ang = (double)rand() / RAND_MAX * 2 * M_PI;
+        double hyp = sqrt((double)rand() / RAND_MAX) * r;
+        double adj = cos(ang) * hyp;
+        double opp = sin(ang) * hyp;
+        return {x + adj, y + opp};
+    }
+};

@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool winnerOfGame(string colors) {
+        int movesAlice = 0,movesBob = 0,cnt = 1;
+        for(int i = 1; i < colors.length(); i++){
+            if(colors[i] == colors[i-1]){
+                cnt++;
+            }
+            else{
+                if(colors[i-1] == 'A')
+                    movesAlice += max(0,cnt-2);
+                else
+                    movesBob += max(0,cnt-2);
+                cnt = 1;
+            }
+        }
+        if(colors.back() == 'A')
+            movesAlice += max(0,cnt-2);
+        else
+            movesBob += max(0,cnt-2);
+        return movesAlice > movesBob;
+    }
+};

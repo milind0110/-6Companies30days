@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxPerformance(int n, vector<int>& speed, vector<int>& efficiency, int k) {
+        vector<pair<int,int>> ef(n);
+        for(int i = 0; i < n; i++){
+            ef[i].first = efficiency[i];
+            ef[i].second = speed[i];
+        }
+        sort(ef.begin(),ef.end());
+        priority_queue<int,vector<int>,greater<int>> pq;
+        long long ans = 0;
+        long long sum = 0;
+        for(int i = n-1; i >= 0; i--){
+            sum += ef[i].second;
+            pq.push(ef[i].second);
+            if((int)pq.size() > k){
+                sum -= pq.top();
+                pq.pop();
+            }
+            ans = max(ans,sum*ef[i].first);
+        }
+        return ans % (int)(1e9+7);
+    }
+};

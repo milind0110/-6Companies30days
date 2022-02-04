@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int getMoneyAmount(int n) {
+        vector<vector<int>> dp(n+5,vector<int>(n+5));
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j+i <= n; j++){
+                int start = j,end = j+i;
+                dp[start][end] = 1e9;
+                for(int k = start; k <= end; k++){
+                    dp[start][end] = min(dp[start][end],k + max(dp[start][k-1],dp[k+1][end]));
+                }
+            }
+        }
+        return dp[1][n];
+    }
+};

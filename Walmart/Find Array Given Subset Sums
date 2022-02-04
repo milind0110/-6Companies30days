@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool calc(int n,vector<int> &sums,vector<int> &arr){
+        if(n == 0){
+            return sums.front() == 0;
+        }
+        int siz = sums.size();
+        int ans = sums[siz-1] - sums[siz-2];
+        unordered_map<int,int> mp;
+        for(auto i:sums){
+            mp[i]++;
+        }
+        vector<int> include,exclude;
+        for(int i = siz-1; i >= 0; i--){
+            if(mp[sums[i]] == 0)
+                continue;
+            mp[sums[i]]--;
+            include.push_back(sums[i]);
+            if(mp[sums[i]-ans] == 0)
+                return false;
+            exclude.push_back(sums[i]-ans);
+            mp[sums[i]-ans]--;
+        }
+        arr.push_back(ans);
+        if(calc(n-1,exclude,arr))
+            return true;
+        arr.pop_back();
+        arr.push_back(-1*ans);
+        if(calc(n-1,include,arr))
+            return true;
+        arr.pop_back();
+        return false;
+            
+    }
+    vector<int> recoverArray(int n, vector<int>& sums) {
+        vector<int> arr;
+        sort(sums.begin(),sums.end());
+        calc(n,sums,arr);
+        return arr;
+    }
+};
